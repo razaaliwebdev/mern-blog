@@ -1,6 +1,8 @@
 import express from "express";
 import "dotenv/config";
 import connectDB from "./src/db/db.js";
+import userRouter from './src/routes/userRoutes.js';
+import authRouter from './src/routes/authRoute.js';
 
 const app = express();
 
@@ -14,3 +16,10 @@ connectDB().then(() => {
     console.log("Database connection error:", error);
 });
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
+// Routes
+app.use("/api/user", userRouter);
+app.use("/api/auth", authRouter);
